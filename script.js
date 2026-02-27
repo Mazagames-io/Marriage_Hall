@@ -3,7 +3,7 @@
 const hallData = [
   {
     id: 1,
-    name: "ஸ்ரீ மீனாட்சி திருமண மண்டபம்",
+    name: "Sri Meenakshi Thirumana Mandapam",
     area: "Velachery",
     price: 95000,
     capacity: 450,
@@ -11,7 +11,7 @@ const hallData = [
   },
   {
     id: 2,
-    name: "அருள்மிகு முருகன் கல்யாண மண்டபம்",
+    name: "Arulmigu Murugan Kalyana Mandapam",
     area: "Tambaram",
     price: 80000,
     capacity: 380,
@@ -19,7 +19,7 @@ const hallData = [
   },
   {
     id: 3,
-    name: "லட்சுமி மகால்",
+    name: "Lakshmi Mahal",
     area: "Porur",
     price: 120000,
     capacity: 600,
@@ -27,7 +27,7 @@ const hallData = [
   },
   {
     id: 4,
-    name: "செல்வ விநாயகர் திருக்கல்யாண அரங்கம்",
+    name: "Selva Vinayagar Thirukalyana Arangam",
     area: "Ambattur",
     price: 70000,
     capacity: 300,
@@ -35,7 +35,7 @@ const hallData = [
   },
   {
     id: 5,
-    name: "நல்லூரம்மன் திருமண நிலையம்",
+    name: "Nalluramman Thirumana Nilayam",
     area: "Anna Nagar",
     price: 115000,
     capacity: 500,
@@ -43,7 +43,7 @@ const hallData = [
   },
   {
     id: 6,
-    name: "கோமதி சங்கர் மண்டபம்",
+    name: "Gomathi Sankar Mandapam",
     area: "Mylapore",
     price: 130000,
     capacity: 550,
@@ -51,7 +51,7 @@ const hallData = [
   },
   {
     id: 7,
-    name: "வள்ளி தெய்வானை மகால்",
+    name: "Valli Deivanai Mahal",
     area: "Vadapalani",
     price: 90000,
     capacity: 420,
@@ -59,7 +59,7 @@ const hallData = [
   },
   {
     id: 8,
-    name: "காமாட்சி அம்மன் கல்யாண மண்டபம்",
+    name: "Kamakshi Amman Kalyana Mandapam",
     area: "T. Nagar",
     price: 150000,
     capacity: 700,
@@ -67,7 +67,7 @@ const hallData = [
   },
   {
     id: 9,
-    name: "திருவள்ளுவர் திருமண மண்டபம்",
+    name: "Thiruvalluvar Thirumana Mandapam",
     area: "Perambur",
     price: 85000,
     capacity: 360,
@@ -75,7 +75,7 @@ const hallData = [
   },
   {
     id: 10,
-    name: "பொன்னி நதி கல்யாண அரங்கம்",
+    name: "Ponni Nadhi Kalyana Arangam",
     area: "Chromepet",
     price: 105000,
     capacity: 480,
@@ -249,6 +249,11 @@ function setupHallForm() {
     popupMessage.textContent = `Thanks! ${hallName} has been added to local listings.`;
     popup.hidden = false;
     form.reset();
+
+    // Optional redirect so users immediately see the hall they added.
+    setTimeout(() => {
+      window.location.href = "listings.html?added=1";
+    }, 900);
   });
 
   closePopup.addEventListener("click", () => {
@@ -276,10 +281,22 @@ function updateFooterYear() {
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 }
 
+
+function setupAddedMessage() {
+  const resultCount = document.getElementById("resultCount");
+  if (!resultCount) return;
+
+  const added = new URLSearchParams(window.location.search).get("added");
+  if (added === "1") {
+    resultCount.textContent = `Hall added successfully. ${resultCount.textContent}`;
+  }
+}
+
 // Run page features.
 renderFeaturedHalls();
 setupHomepageSearch();
 setupListingsPage();
+setupAddedMessage();
 setupHallForm();
 setupMobileMenu();
 updateFooterYear();
