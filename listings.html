@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Browse Marriage Halls in Chennai | ChennaiMandapam</title>
+    <meta
+      name="description"
+      content="Browse all marriage halls in Chennai. Filter by area and price to compare venues quickly."
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="navbar container" aria-label="Main navigation">
+        <a class="logo" href="index.html">ChennaiMandapam</a>
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle mobile menu">☰</button>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="listings.html" class="active">Browse Halls</a></li>
+          <li><a href="add-hall.html">Add Hall</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="container page-main">
+      <section class="section-head listing-head">
+        <h1>Browse Wedding Halls in Chennai</h1>
+        <p>Compare venues by budget and location to shortlist faster.</p>
+      </section>
+
+      <section class="filters-panel" aria-label="Listings filters">
+        <div class="filter-item">
+          <label for="priceFilter">Price Range</label>
+          <select id="priceFilter">
+            <option value="all">All prices</option>
+            <option value="50000">Up to ₹50,000</option>
+            <option value="100000">Up to ₹1,00,000</option>
+            <option value="150000">Up to ₹1,50,000</option>
+            <option value="200000">Up to ₹2,00,000</option>
+          </select>
+        </div>
+
+        <div class="filter-item">
+          <label for="areaFilter">Area</label>
+          <select id="areaFilter">
+            <option value="all">All areas</option>
+          </select>
+        </div>
+      </section>
+
+      <section>
+        <div class="hall-grid" id="listingsGrid" aria-live="polite"></div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-content">
+        <p><strong>About:</strong> ChennaiMandapam helps families discover trusted wedding halls with ease.</p>
+        <p>Proudly focused on Chennai venues and local wedding needs.</p>
+        <p>© <span id="year"></span> ChennaiMandapam. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

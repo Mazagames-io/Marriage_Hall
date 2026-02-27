@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Your Marriage Hall | ChennaiMandapam</title>
+    <meta
+      name="description"
+      content="List your marriage hall in Chennai and reach more customers. Submit venue details through this simple form."
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="navbar container" aria-label="Main navigation">
+        <a class="logo" href="index.html">ChennaiMandapam</a>
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle mobile menu">☰</button>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="listings.html">Browse Halls</a></li>
+          <li><a href="add-hall.html" class="active">Add Hall</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="container page-main">
+      <section class="section-head listing-head">
+        <h1>List Your Marriage Hall</h1>
+        <p>Submit your venue details and attract families planning weddings in Chennai.</p>
+      </section>
+
+      <form id="hallForm" class="hall-form" novalidate>
+        <div class="form-group">
+          <label for="hallName">Hall Name</label>
+          <input type="text" id="hallName" name="hallName" required />
+        </div>
+
+        <div class="form-group">
+          <label for="location">Location</label>
+          <input type="text" id="location" name="location" required />
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="price">Price (Starting)</label>
+            <input type="number" id="price" name="price" min="0" required />
+          </div>
+
+          <div class="form-group">
+            <label for="capacity">Capacity</label>
+            <input type="number" id="capacity" name="capacity" min="0" required />
+          </div>
+        </div>
+
+        <fieldset class="form-group">
+          <legend>Amenities</legend>
+          <label><input type="checkbox" name="amenities" value="AC" /> AC</label>
+          <label><input type="checkbox" name="amenities" value="Parking" /> Parking</label>
+          <label><input type="checkbox" name="amenities" value="Dining Hall" /> Dining Hall</label>
+          <label><input type="checkbox" name="amenities" value="Rooms" /> Rooms</label>
+        </fieldset>
+
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea id="description" name="description" rows="4" required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="images">Upload Hall Images (UI only)</label>
+          <input type="file" id="images" name="images" accept="image/*" multiple />
+        </div>
+
+        <button type="submit" class="btn-primary">Submit Hall</button>
+      </form>
+    </main>
+
+    <div class="popup" id="successPopup" role="alertdialog" aria-modal="true" aria-labelledby="popupTitle" hidden>
+      <div class="popup-content">
+        <h2 id="popupTitle">Submission Received</h2>
+        <p>Thank you! Your hall details were submitted successfully.</p>
+        <button id="closePopup" class="btn-primary" type="button">Close</button>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <div class="container footer-content">
+        <p><strong>About:</strong> ChennaiMandapam helps families discover trusted wedding halls with ease.</p>
+        <p>Proudly focused on Chennai venues and local wedding needs.</p>
+        <p>© <span id="year"></span> ChennaiMandapam. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
