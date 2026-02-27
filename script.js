@@ -1,52 +1,85 @@
 // Dummy listing data for demo purposes.
+// 10 realistic Chennai marriage halls with Tamil-style naming.
 const hallData = [
   {
     id: 1,
-    name: "Grand Velachery Mahal",
+    name: "ஸ்ரீ மீனாட்சி திருமண மண்டபம்",
     area: "Velachery",
-    price: 110000,
-    capacity: 500,
-    image: "https://placehold.co/600x360/f4ecec/7b1e1e?text=Grand+Velachery+Mahal",
+    price: 95000,
+    capacity: 450,
+    image: "https://placehold.co/600x360/f4ecec/7b1e1e?text=Sri+Meenakshi+Thirumana+Mandapam",
   },
   {
     id: 2,
-    name: "Tambaram Royal Palace",
+    name: "அருள்மிகு முருகன் கல்யாண மண்டபம்",
     area: "Tambaram",
-    price: 85000,
-    capacity: 350,
-    image: "https://placehold.co/600x360/fcf3e5/7b1e1e?text=Tambaram+Royal+Palace",
+    price: 80000,
+    capacity: 380,
+    image: "https://placehold.co/600x360/fcf3e5/7b1e1e?text=Arulmigu+Murugan+Kalyana+Mandapam",
   },
   {
     id: 3,
-    name: "Porur Crown Convention",
+    name: "லட்சுமி மகால்",
     area: "Porur",
-    price: 140000,
-    capacity: 700,
-    image: "https://placehold.co/600x360/f5efef/7b1e1e?text=Porur+Crown+Convention",
+    price: 120000,
+    capacity: 600,
+    image: "https://placehold.co/600x360/f5efef/7b1e1e?text=Lakshmi+Mahal",
   },
   {
     id: 4,
-    name: "Ambattur Harmony Hall",
+    name: "செல்வ விநாயகர் திருக்கல்யாண அரங்கம்",
     area: "Ambattur",
-    price: 65000,
-    capacity: 280,
-    image: "https://placehold.co/600x360/fdf8ea/7b1e1e?text=Ambattur+Harmony+Hall",
+    price: 70000,
+    capacity: 300,
+    image: "https://placehold.co/600x360/fdf8ea/7b1e1e?text=Selva+Vinayagar+Arangam",
   },
   {
     id: 5,
-    name: "Anna Nagar Lotus Mandapam",
+    name: "நல்லூரம்மன் திருமண நிலையம்",
     area: "Anna Nagar",
-    price: 125000,
-    capacity: 450,
-    image: "https://placehold.co/600x360/f8f1f1/7b1e1e?text=Lotus+Mandapam",
+    price: 115000,
+    capacity: 500,
+    image: "https://placehold.co/600x360/f8f1f1/7b1e1e?text=Nalluramman+Thirumana+Nilayam",
   },
   {
     id: 6,
-    name: "ECR Golden Banquet",
-    area: "ECR",
-    price: 190000,
-    capacity: 900,
-    image: "https://placehold.co/600x360/fff4f4/7b1e1e?text=ECR+Golden+Banquet",
+    name: "கோமதி சங்கர் மண்டபம்",
+    area: "Mylapore",
+    price: 130000,
+    capacity: 550,
+    image: "https://placehold.co/600x360/fff4f4/7b1e1e?text=Gomathi+Sankar+Mandapam",
+  },
+  {
+    id: 7,
+    name: "வள்ளி தெய்வானை மகால்",
+    area: "Vadapalani",
+    price: 90000,
+    capacity: 420,
+    image: "https://placehold.co/600x360/f6eded/7b1e1e?text=Valli+Deivanai+Mahal",
+  },
+  {
+    id: 8,
+    name: "காமாட்சி அம்மன் கல்யாண மண்டபம்",
+    area: "T. Nagar",
+    price: 150000,
+    capacity: 700,
+    image: "https://placehold.co/600x360/faf1e7/7b1e1e?text=Kamakshi+Amman+Kalyana+Mandapam",
+  },
+  {
+    id: 9,
+    name: "திருவள்ளுவர் திருமண மண்டபம்",
+    area: "Perambur",
+    price: 85000,
+    capacity: 360,
+    image: "https://placehold.co/600x360/f9f0f0/7b1e1e?text=Thiruvalluvar+Thirumana+Mandapam",
+  },
+  {
+    id: 10,
+    name: "பொன்னி நதி கல்யாண அரங்கம்",
+    area: "Chromepet",
+    price: 105000,
+    capacity: 480,
+    image: "https://placehold.co/600x360/fef5ea/7b1e1e?text=Ponni+Nadhi+Kalyana+Arangam",
   },
 ];
 
@@ -79,7 +112,7 @@ function cardTemplate(hall) {
 function renderFeaturedHalls() {
   const featuredGrid = document.getElementById("featuredGrid");
   if (!featuredGrid) return;
-  featuredGrid.innerHTML = hallData.slice(0, 4).map(cardTemplate).join("");
+  featuredGrid.innerHTML = hallData.slice(0, 6).map(cardTemplate).join("");
 }
 
 function setupListingsPage() {
@@ -134,7 +167,7 @@ function setupHallForm() {
   form.addEventListener("submit", (event) => {
     event.preventDefault();
 
-    // Basic check: let browser validation handle required fields.
+    // If form is invalid, browser will show native messages and stop.
     if (!form.checkValidity()) {
       form.reportValidity();
       return;
@@ -146,6 +179,11 @@ function setupHallForm() {
 
   closePopup.addEventListener("click", () => {
     popup.hidden = true;
+  });
+
+  // Optional: close popup by clicking dark backdrop.
+  popup.addEventListener("click", (event) => {
+    if (event.target === popup) popup.hidden = true;
   });
 }
 
