@@ -83,6 +83,29 @@ const hallData = [
   },
 ];
 
+const CUSTOM_HALLS_STORAGE_KEY = "chennaiMandapamCustomHalls";
+
+function readCustomHalls() {
+  const raw = localStorage.getItem(CUSTOM_HALLS_STORAGE_KEY);
+  if (!raw) return [];
+
+  try {
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveCustomHalls(halls) {
+  localStorage.setItem(CUSTOM_HALLS_STORAGE_KEY, JSON.stringify(halls));
+}
+
+function getAllHalls() {
+  // Custom halls are shown first so owners can see their submissions instantly.
+  return [...readCustomHalls(), ...hallData];
+}
+
 // Utility: format numbers as INR currency.
 function formatPrice(value) {
   return new Intl.NumberFormat("en-IN", {
@@ -112,18 +135,37 @@ function cardTemplate(hall) {
 function renderFeaturedHalls() {
   const featuredGrid = document.getElementById("featuredGrid");
   if (!featuredGrid) return;
-  featuredGrid.innerHTML = hallData.slice(0, 6).map(cardTemplate).join("");
+
+  const allHalls = getAllHalls();
+  featuredGrid.innerHTML = allHalls.slice(0, 6).map(cardTemplate).join("");
+}
+
+function setupHomepageSearch() {
+  const form = document.getElementById("homeSearchForm");
+  const input = document.getElementById("homeSearchInput");
+  if (!form || !input) return;
+
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const q = input.value.trim();
+    const nextUrl = q ? `listings.html?q=${encodeURIComponent(q)}` : "listings.html";
+    window.location.href = nextUrl;
+  });
 }
 
 function setupListingsPage() {
   const listingsGrid = document.getElementById("listingsGrid");
   const priceFilter = document.getElementById("priceFilter");
   const areaFilter = document.getElementById("areaFilter");
+  const keywordFilter = document.getElementById("keywordFilter");
+  const resultCount = document.getElementById("resultCount");
 
-  if (!listingsGrid || !priceFilter || !areaFilter) return;
+  if (!listingsGrid || !priceFilter || !areaFilter || !keywordFilter || !resultCount) return;
+
+  const allHalls = getAllHalls();
 
   // Populate area dropdown from data.
-  const uniqueAreas = [...new Set(hallData.map((hall) => hall.area))].sort();
+  const uniqueAreas = [...new Set(allHalls.map((hall) => hall.area))].sort();
   uniqueAreas.forEach((area) => {
     const option = document.createElement("option");
     option.value = area;
@@ -131,29 +173,41 @@ function setupListingsPage() {
     areaFilter.append(option);
   });
 
-  // Read area from query string (e.g., listings.html?area=Tambaram)
-  const areaParam = new URLSearchParams(window.location.search).get("area");
+  // Read area/query from query string.
+  const query = new URLSearchParams(window.location.search);
+  const areaParam = query.get("area");
+  const qParam = query.get("q");
+
   if (areaParam && uniqueAreas.includes(areaParam)) {
     areaFilter.value = areaParam;
+  }
+  if (qParam) {
+    keywordFilter.value = qParam;
   }
 
   function applyFilters() {
     const selectedPrice = priceFilter.value;
     const selectedArea = areaFilter.value;
+    const keyword = keywordFilter.value.trim().toLowerCase();
 
-    const filteredData = hallData.filter((hall) => {
+    const filteredData = allHalls.filter((hall) => {
       const passesPrice = selectedPrice === "all" ? true : hall.price <= Number(selectedPrice);
       const passesArea = selectedArea === "all" ? true : hall.area === selectedArea;
-      return passesPrice && passesArea;
+      const searchText = `${hall.name} ${hall.area}`.toLowerCase();
+      const passesKeyword = keyword ? searchText.includes(keyword) : true;
+      return passesPrice && passesArea && passesKeyword;
     });
+
+    resultCount.textContent = `${filteredData.length} halls found`;
 
     listingsGrid.innerHTML = filteredData.length
       ? filteredData.map(cardTemplate).join("")
-      : '<p>No halls match the selected filters.</p>';
+      : '<p class="no-results">No halls match the selected filters.</p>';
   }
 
   priceFilter.addEventListener("change", applyFilters);
   areaFilter.addEventListener("change", applyFilters);
+  keywordFilter.addEventListener("input", applyFilters);
   applyFilters();
 }
 
@@ -161,8 +215,9 @@ function setupHallForm() {
   const form = document.getElementById("hallForm");
   const popup = document.getElementById("successPopup");
   const closePopup = document.getElementById("closePopup");
+  const popupMessage = document.getElementById("popupMessage");
 
-  if (!form || !popup || !closePopup) return;
+  if (!form || !popup || !closePopup || !popupMessage) return;
 
   form.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -173,6 +228,25 @@ function setupHallForm() {
       return;
     }
 
+    const hallName = form.hallName.value.trim();
+    const location = form.location.value.trim();
+    const area = location.split(",")[0].trim() || "Chennai";
+    const price = Number(form.price.value);
+    const capacity = Number(form.capacity.value);
+
+    const newHall = {
+      id: Date.now(),
+      name: hallName,
+      area,
+      price,
+      capacity,
+      image: "https://placehold.co/600x360/faf6f6/7b1e1e?text=New+Hall+Listing",
+    };
+
+    const existingCustom = readCustomHalls();
+    saveCustomHalls([newHall, ...existingCustom]);
+
+    popupMessage.textContent = `Thanks! ${hallName} has been added to local listings.`;
     popup.hidden = false;
     form.reset();
   });
@@ -204,6 +278,7 @@ function updateFooterYear() {
 
 // Run page features.
 renderFeaturedHalls();
+setupHomepageSearch();
 setupListingsPage();
 setupHallForm();
 setupMobileMenu();

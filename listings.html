@@ -3,12 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
     <title>Browse Marriage Halls in Chennai | ChennaiMandapam</title>
     <meta
       name="description"
       content="Browse all marriage halls in Chennai. Filter by area and price to compare venues quickly."
     />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css?v=20260227" />
   </head>
   <body>
     <header class="site-header">
@@ -31,6 +34,11 @@
 
       <section class="filters-panel" aria-label="Listings filters">
         <div class="filter-item">
+          <label for="keywordFilter">Search Hall or Area</label>
+          <input id="keywordFilter" type="text" placeholder="e.g., Velachery or மீனாட்சி" />
+        </div>
+
+        <div class="filter-item">
           <label for="priceFilter">Price Range</label>
           <select id="priceFilter">
             <option value="all">All prices</option>
@@ -49,6 +57,8 @@
         </div>
       </section>
 
+      <p class="result-count" id="resultCount"></p>
+
       <section>
         <div class="hall-grid" id="listingsGrid" aria-live="polite"></div>
       </section>
@@ -62,6 +72,6 @@
       </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="script.js?v=20260227"></script>
   </body>
 </html>
