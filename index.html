@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>Marriage Hall Chennai | Find the Perfect Wedding Venue</title>
+    <meta
+      name="description"
+      content="Discover and compare the best marriage halls in Chennai. Filter by budget, area, and capacity to find your perfect wedding venue."
+    />
+    <link rel="stylesheet" href="styles.css?v=20260227" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="navbar container" aria-label="Main navigation">
+        <a class="logo" href="index.html">ChennaiMandapam</a>
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle mobile menu">☰</button>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="index.html" class="active">Home</a></li>
+          <li><a href="listings.html">Browse Halls</a></li>
+          <li><a href="add-hall.html">Add Hall</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container hero-content">
+          <h1>Find the Perfect Marriage Hall in Chennai</h1>
+          <p>Premium wedding venues curated for every budget, style, and celebration size.</p>
+
+          <form class="search-ui" id="homeSearchForm" role="search" aria-label="Search wedding halls">
+            <input
+              id="homeSearchInput"
+              type="text"
+              placeholder="Search by area, hall name, or landmark"
+              aria-label="Search halls"
+            />
+            <button type="submit">Search</button>
+          </form>
+
+          <div class="quick-filters" aria-label="Quick filters">
+            <button type="button">Budget</button>
+            <button type="button">Capacity</button>
+            <button type="button">AC / Non AC</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="section container">
+        <div class="section-head">
+          <h2>Featured Halls</h2>
+          <a href="listings.html" class="text-link">View all halls</a>
+        </div>
+        <div class="hall-grid" id="featuredGrid"></div>
+      </section>
+
+      <section class="section section-alt">
+        <div class="container">
+          <h2>Popular Areas in Chennai</h2>
+          <div class="areas-grid">
+            <a href="listings.html?area=Tambaram" class="area-chip">Tambaram</a>
+            <a href="listings.html?area=Velachery" class="area-chip">Velachery</a>
+            <a href="listings.html?area=Porur" class="area-chip">Porur</a>
+            <a href="listings.html?area=Ambattur" class="area-chip">Ambattur</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section container cta-owner">
+        <h2>Are You a Hall Owner?</h2>
+        <p>Reach thousands of families searching for verified wedding venues in Chennai.</p>
+        <a href="add-hall.html" class="btn-primary">List Your Hall</a>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-content">
+        <p><strong>About:</strong> ChennaiMandapam helps families discover trusted wedding halls with ease.</p>
+        <p>Proudly focused on Chennai venues and local wedding needs.</p>
+        <p>© <span id="year"></span> ChennaiMandapam. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script src="script.js?v=20260227"></script>
+  </body>
+</html>
